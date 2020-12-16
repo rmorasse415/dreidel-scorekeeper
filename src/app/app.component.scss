@@ -1,0 +1,13 @@
+img {
+    height: 100px;
+    object-fit: contain;
+}
+
+.mat-card .last-child {
+    margin-bottom: 0;
+  }
+
+mat-card {
+    min-width: 100px;
+    padding: 10px 10px;
+}
