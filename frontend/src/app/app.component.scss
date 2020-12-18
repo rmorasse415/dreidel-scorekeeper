@@ -1,13 +1,72 @@
 img {
     height: 100px;
     object-fit: contain;
+    padding: 0 0 10px 0;
+    margin-bottom: 0;
+}
+
+h1 {
+    text-align: center;
 }
 
 .mat-card .last-child {
     margin-bottom: 0;
   }
 
+.container {
+    justify-content: center;
+    padding: 10px
+}
+
+mat-card-content {
+    margin: 0;
+    padding: 0;
+}
+
 mat-card {
     min-width: 100px;
     padding: 10px 10px;
+    margin: 5px;
+    text-align: center;
+    vertical-align: text-top;
+}
+
+.inputContainer {
+    justify-content: center;
+    margin-top: 40px;
+    text-align: center;
+
+}
+
+.inner {
+    margin: 0 auto;
+}
+
+.buttonContainer {
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.gamePanel {
+    justify-content: center;
+    width: 100%;
+    position: sticky;
+    align-items: center;
+}
+
+.submitName {
+    margin: 0 10px;
+}
+
+.status {
+    text-align: center;
+}
+
+.prevAction {
+    text-align: center;
+}
+
+.inputContainer button {
+    max-height: 3em;
+    align-self: center;
 }

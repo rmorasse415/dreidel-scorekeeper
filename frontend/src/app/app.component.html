@@ -1,22 +1,47 @@
-<h1 matLabel>Ronnie's Dreidel App v0.1</h1>
-<div>
-  <div fxLayout="row" fxLayoutGap="20px">
-    <mat-card matRipple (click)="testme()">
-      <img mat-card-image src="assets/nun.png" height="200px">
-      <mat-card-content class="last-child">NUN</mat-card-content>
-    </mat-card>
-    <mat-card matRipple (click)="testme()">
-      <img mat-card-image src="assets/gimmel.png" height="200px">
-      <mat-card-content class="last-child">GIMMEL</mat-card-content>
-    </mat-card>
-    <mat-card matRipple (click)="testme()">
-      <img mat-card-image src="assets/hay.png" height="200px">
-      <mat-card-content class="last-child">HAY</mat-card-content>
-    </mat-card>
-    <mat-card matRipple (click)="testme()">
-      <img mat-card-image src="assets/shin.png" height="200px">
-      <mat-card-content class="last-child">SHIN</mat-card-content>
-    </mat-card>
+<h1 matLabel>Dreidel App v0.1</h1>
+<div *ngIf="isInGame" class="gamePanel">
+  <div class="inner">
+    <div *ngIf="isMyTurn" class="container" fxLayout="row wrap" fxWrap>
+      <mat-card matRipple (click)="takeAction('n')">
+        <img mat-card-image src="assets/nun.png">
+        <mat-card-content class="last-child">NUN</mat-card-content>
+      </mat-card>
+      <mat-card matRipple (click)="takeAction('g')">
+        <img mat-card-image src="assets/gimmel.png">
+        <mat-card-content class="last-child">GIMMEL</mat-card-content>
+      </mat-card>
+      <mat-card matRipple (click)="takeAction('h')">
+        <img mat-card-image src="assets/hay.png">
+        <mat-card-content class="last-child">HAY</mat-card-content>
+      </mat-card>
+      <mat-card matRipple (click)="takeAction('s')">
+        <img mat-card-image src="assets/shin.png">
+        <mat-card-content class="last-child">SHIN</mat-card-content>
+      </mat-card>
+    </div>
+    <div *ngIf="!isMyTurn && isStarted" fxLayout="column">
+      <div class="status">Waiting on {{curData.users[curData.curUser].name}} to play</div>
+      <div class="prevAction" *ngIf="prevAction">{{prevAction}}</div>
+    </div>
+    <div fxLayout="row" class="buttonContainer" fxLayoutGap="10px">
+      <button *ngIf="!isStarted" mat-flat-button color="primary" (click)="onClickStartGame()">Start Game</button>
+      <button *ngIf="isStarted" mat-flat-button color="primary" (click)="onClickResetGame()">Reset Game</button>
+      <button *ngIf="isInGame" mat-flat-button color="primary" (click)="leaveGame()">Leave Game</button>
+    </div>
+    <div *ngIf="curData">
+      <div>POT: {{curData.pot}}</div>
+      <div *ngFor="let user of curData.users">{{user.name}}: {{user.cash}} {{user.connected ? '' : '*DISCONNECTED*'}}</div>
+    </div>
   </div>
 </div>
+<div *ngIf="!isInGame">
+  <span class="inputContainer" fxLayout="row">
+    <mat-form-field floatLabel="always">
+      <mat-label>Enter Name</mat-label>
+      <input #name (keyup.enter)="joinGame(name.value)" matInput placeholder="Leave empty to view only">
+    </mat-form-field>
+    <button (click)="joinGame(name.value)" mat-flat-button class="submitName" color="primary">Join Game</button>
+  </span>
+</div>
+
 <router-outlet></router-outlet>
